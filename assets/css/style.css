@@ -1,0 +1,17 @@
+
+
+.boxes {
+    margin-left: 12px;
+    padding: 20px;
+    border-color: rgb(202, 202, 202);
+    border-width: 2px;
+    border-style: ridge;
+};
+
+
+.top-area {
+    border: salmon;
+    border-width: 2px;
+    background-color: salmon;
+
+};
