@@ -1,4 +1,10 @@
 var city = "denver";
+var currentCity = "Chicago";
+
+var DateTime = luxon.DateTime;
+var dt = DateTime.local();
+
+console.log(currentCity, dt.toLocaleString());
 
 // Call API by City Name
 
@@ -49,7 +55,7 @@ function getUVI(lon, lat) {
                 console.log(response);
                 response.json().then(function (data) {
                     //Logs Current UVI
-                    console.log(data.current.uvi);
+                    console.log("Current UV Index: ", data.current.uvi);
 
                 });
             } else {
