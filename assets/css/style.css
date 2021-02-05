@@ -1,17 +1,27 @@
+h1 {
+    padding: 5%;
+    font-size: 2.0rem !important;
+}
 
+h3 {
+    text-align: center;
+}
 
 .boxes {
     margin-left: 12px;
+    margin-top: 10px;
     padding: 20px;
     border-color: rgb(202, 202, 202);
     border-width: 2px;
     border-style: ridge;
-};
+}
 
 
 .top-area {
     border: salmon;
     border-width: 2px;
-    background-color: salmon;
 
-};
+}
+
+
+
