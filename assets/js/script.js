@@ -9,8 +9,17 @@ function getWeather(city) {
     // Getting City Date and Time
     var DateTime = luxon.DateTime;
     var dt = DateTime.local();
+
+    // 1-5 days after current date
+    var dayOne = DateTime.local().plus({ days: 1 }).toLocaleString();
+    var dayTwo = DateTime.local().plus({ days: 2 }).toLocaleString();
+    var dayThree = DateTime.local().plus({ days: 3 }).toLocaleString();
+    var dayFour = DateTime.local().plus({ days: 4 }).toLocaleString();
+    var dayFive = DateTime.local().plus({ days: 5 }).toLocaleString();
+    
     //Logs City Name and Time
     console.log(city, dt.toLocaleString());
+   
 
     // Call API by City Name
     var cityWeather = `https://api.openweathermap.org/data/2.5/weather?q=${city}&units=imperial&appid=3a551c8fc73e4638743bd3a7d220e283`;
@@ -144,6 +153,12 @@ function getWeather(city) {
 
                     
                     }
+                    // Add Date 
+                    $('#five-day-box1').prepend('<p>' + dayOne + '</p>')
+                    $('#five-day-box2').prepend('<p>' + dayTwo + '</p>')
+                    $('#five-day-box3').prepend('<p>' + dayThree + '</p>')
+                    $('#five-day-box4').prepend('<p>' + dayFour + '</p>')
+                    $('#five-day-box5').prepend('<p>' + dayFive + '</p>')
 
 
 
