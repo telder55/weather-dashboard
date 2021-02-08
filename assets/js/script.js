@@ -1,6 +1,9 @@
 var currentCardParent = document.getElementById("current-area");
 var currentCard = document.createElement("div");
 
+var fiveDayParent = document.getElementById("five-day");
+var fiveDayCard = document.createElement("div");
+
 
 function getWeather(city) {
     // Getting City Date and Time
@@ -31,9 +34,9 @@ function getWeather(city) {
                 console.log("Longitude:", data.coord.lon);
                 // Logs and Longitude
                 console.log("Latitude:", data.coord.lat);
-                
+
                 // Creating URL for icon image
-                var iconURL = "http://openweathermap.org/img/w/" + data.weather[0].icon + ".png";
+                var iconURL = "https://openweathermap.org/img/w/" + data.weather[0].icon + ".png";
 
                 // Adding to Screen
                 currentCard.innerHTML = "";
@@ -41,18 +44,19 @@ function getWeather(city) {
                 var cityTemp = document.createElement("p");
                 var cityHumidity = document.createElement("p");
                 var cityWind = document.createElement("p");
-               
+
 
                 //Filling in Elements
                 cityDate.textContent = city + " " + dt.toLocaleString();
                 cityTemp.textContent = "Temperature: " + data.main.temp + " F";
                 cityHumidity.textContent = "Humidity: " + data.main.humidity + "%";
                 cityWind.textContent = "Wind Speed: " + data.wind.speed + " MPH";
+
+                 // Creating IMG Tag with ID #current-icon
+                 $('#current-area').html($('<img>', { id: 'current-icon' }));
+                 // Adding src URL to IMG Tag 
+                 $('#current-icon').attr('src', iconURL);
                 
-                // Creating IMG Tag with ID #current-icon
-                $('#current-area').html($('<img>', {id: 'current-icon'}, {src: 'iconURL'}));
-                // Adding src URL to IMG Tag 
-                $('#current-icon').attr('src', iconURL);
 
                 //Appending Elements
                 currentCard.appendChild(cityDate);
@@ -61,8 +65,7 @@ function getWeather(city) {
                 currentCard.appendChild(cityWind);
                 currentCardParent.appendChild(currentCard);
 
-                // Adding URL to DOM
-                $('#weather-icon').attr('src', iconURL);
+
 
                 // Calling UV Index Function
                 getUVI(data.coord.lon, data.coord.lat);
@@ -77,7 +80,7 @@ function getWeather(city) {
             alert('Unable to connect to Weather');
         });
 
-    // Getting UV Index
+    // Getting UV Index and 5-Day Forecast
     function getUVI(lon, lat) {
         var cityWeatherOneCall = `https://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${lon}&exclude=hourly,minutely&units=imperial&appid=3a551c8fc73e4638743bd3a7d220e283`;
         fetch(cityWeatherOneCall).then(function (response) {
@@ -104,7 +107,7 @@ function getWeather(city) {
 
                     // 5-Day Forecast Section
                     // Day 1 Date 
-                    console.log();
+                    console.log(data.daily);
                     // Day 1 icon
                     console.log(data.daily[1].weather[0].icon);
                     // Day 1 Temp
@@ -113,7 +116,34 @@ function getWeather(city) {
                     console.log(data.daily[1].humidity);
 
 
+
                     // For Loop to move through array and grab 5-day forecast data. 
+                    var weatherArray = data.daily
+                    for (var i = 1; i < 6; i++) {
+
+                        // Create Variables for Each Day
+                        var dayIcon = weatherArray[i].weather[0].icon;
+                        var dayTemp = weatherArray[i].temp.day;
+                        var dayHumidity = weatherArray[i].humidity;
+                        // Creating URL for icon image
+                        var fiveDayIconURL = "http://openweathermap.org/img/w/" + dayIcon + ".png";
+
+                        // Create DIV with ID 'five-day'
+                        $('#five-day').append($('<div>', {id: 'five-day-box' + i, class: 'five-day'}, + '</div>'))
+
+                        // Create Icon Element
+                        $('#five-day-box' + i).append($('<img>', { id: 'five-icon' + i},));
+                        // Adding src URL to IMG Tag 
+                        $('#five-icon' + i).attr('src', fiveDayIconURL);
+
+                        // Create 5-day Temperature
+                        $('#five-day-box' + i).append($('<p>' + "Temp: " + dayTemp + " F" + '</p>' ));
+
+                        // Create 5-day Humidity
+                        $('#five-day-box' + i).append($('<p>' + "Humidity: " + dayHumidity + "%" + '</p>' ));
+
+                    
+                    }
 
 
 

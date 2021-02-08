@@ -11,8 +11,8 @@ h4 {
     text-transform: capitalize;
 }
 
-.boxes {
-    margin-left: 12px;
+.box-1 {
+    /* margin-left: 12px; */
     margin-top: 10px;
     padding: 20px;
     border-color: rgb(202, 202, 202);
@@ -20,6 +20,23 @@ h4 {
     border-style: ridge;
 }
 
+.box-2 {
+    /* margin-left: 12px; */
+    margin-top: 10px;
+    padding: 20px;
+    border-color: rgb(202, 202, 202);
+    border-width: 2px;
+    border-style: ridge;
+}
+
+.five-day {
+    border-color: rgb(202, 202, 202);
+    border-width: 1px;
+    border-style: ridge;
+    margin: 2px;
+    padding: 10px;
+    float: left;
+}
 
 .top-area {
     border: salmon;
