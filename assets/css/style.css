@@ -7,6 +7,10 @@ h3 {
     text-align: center;
 }
 
+h4 {
+    text-transform: capitalize;
+}
+
 .boxes {
     margin-left: 12px;
     margin-top: 10px;
@@ -25,16 +29,24 @@ h3 {
 
 .green {
     background-color: green;
+    color: white;
 }
 
 .yellow {
     background-color: yellow;
+    color: black;
+
 }
 
 .orange {
     background-color: orange;
+    color: white;
+
+    
 }
 
 .red {
     background-color: red;
+    color: white;
+
 }
