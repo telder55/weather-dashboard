@@ -16,10 +16,10 @@ function getWeather(city) {
     var dayThree = DateTime.local().plus({ days: 3 }).toLocaleString();
     var dayFour = DateTime.local().plus({ days: 4 }).toLocaleString();
     var dayFive = DateTime.local().plus({ days: 5 }).toLocaleString();
-    
+
     //Logs City Name and Time
     console.log(city, dt.toLocaleString());
-   
+
 
     // Call API by City Name
     var cityWeather = `https://api.openweathermap.org/data/2.5/weather?q=${city}&units=imperial&appid=3a551c8fc73e4638743bd3a7d220e283`;
@@ -61,11 +61,11 @@ function getWeather(city) {
                 cityHumidity.textContent = "Humidity: " + data.main.humidity + "%";
                 cityWind.textContent = "Wind Speed: " + data.wind.speed + " MPH";
 
-                 // Creating IMG Tag with ID #current-icon
-                 $('#current-area').html($('<img>', { id: 'current-icon' }));
-                 // Adding src URL to IMG Tag 
-                 $('#current-icon').attr('src', iconURL);
-                
+                // Creating IMG Tag with ID #current-icon
+                $('#current-area').html($('<img>', { id: 'current-icon' }));
+                // Adding src URL to IMG Tag 
+                $('#current-icon').attr('src', iconURL);
+
 
                 //Appending Elements
                 currentCard.appendChild(cityDate);
@@ -134,31 +134,58 @@ function getWeather(city) {
                         var dayIcon = weatherArray[i].weather[0].icon;
                         var dayTemp = weatherArray[i].temp.day;
                         var dayHumidity = weatherArray[i].humidity;
+
                         // Creating URL for icon image
                         var fiveDayIconURL = "http://openweathermap.org/img/w/" + dayIcon + ".png";
 
-                        // Create DIV with ID 'five-day'
-                        $('#five-day').append($('<div>', {id: 'five-day-box' + i, class: 'five-day'}, + '</div>'))
+                        if (!($('#five-day-box' + i).length)) {
+                            console.log("true");
+                            // Create DIV with ID 'five-day'
+                            $('#five-day').append($('<div>', { id: 'five-day-box' + i, class: 'five-day' }, + '</div>'))
 
-                        // Create Icon Element
-                        $('#five-day-box' + i).append($('<img>', { id: 'five-icon' + i},));
-                        // Adding src URL to IMG Tag 
-                        $('#five-icon' + i).attr('src', fiveDayIconURL);
+                            // Create Icon Element
+                            $('#five-day-box' + i).append($('<img>', { id: 'five-icon' + i },));
+                            // Adding src URL to IMG Tag 
+                            $('#five-icon' + i).attr('src', fiveDayIconURL);
 
-                        // Create 5-day Temperature
-                        $('#five-day-box' + i).append($('<p>' + "Temp: " + dayTemp + " F" + '</p>' ));
+                            // Create 5-day Temperature 
+                            $('#five-day-box' + i).append($('<p>', { id: 'temp' + i },));
+                            $('#temp' + i).text("Temp: " + dayTemp + " F");
 
-                        // Create 5-day Humidity
-                        $('#five-day-box' + i).append($('<p>' + "Humidity: " + dayHumidity + "%" + '</p>' ));
+                            // Create 5-day Humidity
+                            $('#five-day-box' + i).append($('<p>', { id: 'humidity' + i }, + "Humidity: " + dayHumidity + "%" + '</p>'));
+                            $('#humidity' + i).text("Humidity: " + dayTemp + "%");
+                            
 
-                    
+                            // Add Date P Tag
+                            $('#five-day-box' + i).prepend($('<p>', { id: 'date' + i }, + '</p>'));
+
+
+                        } else {
+
+                            console.log("false");
+                            $('#five-icon' + i).attr('src', fiveDayIconURL);
+
+                            // // Update 5-day Temperature
+                            $('#temp' + i).text("Temp: " + dayTemp + " F");
+
+                            // // Update 5-day Humidity
+                            $('#humidity' + i).text("Humidity: " + dayTemp + "%");
+
+
+                        }
+                        console.log(dayTemp);
+
+
+
                     }
-                    // Add Date 
-                    $('#five-day-box1').prepend('<p>' + dayOne + '</p>')
-                    $('#five-day-box2').prepend('<p>' + dayTwo + '</p>')
-                    $('#five-day-box3').prepend('<p>' + dayThree + '</p>')
-                    $('#five-day-box4').prepend('<p>' + dayFour + '</p>')
-                    $('#five-day-box5').prepend('<p>' + dayFive + '</p>')
+                    // $('#temp1').text($("Temp: " + dayTemp + " F"));
+
+                    $('#date1').text(dayOne);
+                    $('#date2').text(dayTwo);
+                    $('#date3').text(dayThree);
+                    $('#date4').text(dayFour);
+                    $('#date5').text(dayFive);
 
 
 
