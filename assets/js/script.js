@@ -57,9 +57,9 @@ function getWeather(city) {
 
                 //Filling in Elements
                 cityDate.textContent = city + " " + dt.toLocaleString();
-                cityTemp.textContent = "Temperature: " + data.main.temp + " F";
-                cityHumidity.textContent = "Humidity: " + data.main.humidity + "%";
-                cityWind.textContent = "Wind Speed: " + data.wind.speed + " MPH";
+                cityTemp.textContent = "Temperature: " + Math.round(data.main.temp) + " F";
+                cityHumidity.textContent = "Humidity: " + Math.round(data.main.humidity) + "%";
+                cityWind.textContent = "Wind Speed: " + Math.round(data.wind.speed) + " MPH";
 
                 // Creating IMG Tag with ID #current-icon
                 $('#current-area').html($('<img>', { id: 'current-icon' }));
@@ -150,11 +150,11 @@ function getWeather(city) {
 
                             // Create 5-day Temperature 
                             $('#five-day-box' + i).append($('<p>', { id: 'temp' + i },));
-                            $('#temp' + i).text("Temp: " + dayTemp + " F");
+                            $('#temp' + i).text("Temp: " + Math.round(dayTemp) + " F");
 
                             // Create 5-day Humidity
                             $('#five-day-box' + i).append($('<p>', { id: 'humidity' + i }, + "Humidity: " + dayHumidity + "%" + '</p>'));
-                            $('#humidity' + i).text("Humidity: " + dayTemp + "%");
+                            $('#humidity' + i).text("Humidity: " + Math.round(dayHumidity) + "%");
                             
 
                             // Add Date P Tag
@@ -167,10 +167,10 @@ function getWeather(city) {
                             $('#five-icon' + i).attr('src', fiveDayIconURL);
 
                             // // Update 5-day Temperature
-                            $('#temp' + i).text("Temp: " + dayTemp + " F");
+                            $('#temp' + i).text("Temp: " + Math.round(dayTemp) + " F");
 
                             // // Update 5-day Humidity
-                            $('#humidity' + i).text("Humidity: " + dayTemp + "%");
+                            $('#humidity' + i).text("Humidity: " + Math.round(dayHumidity) + "%");
 
 
                         }
