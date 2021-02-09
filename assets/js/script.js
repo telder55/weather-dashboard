@@ -1,9 +1,9 @@
+// Setting Global Variables
 var currentCardParent = document.getElementById("current-area");
 var currentCard = document.createElement("div");
 
 var fiveDayParent = document.getElementById("five-day");
 var fiveDayCard = document.createElement("div");
-
 
 function getWeather(city) {
     // Getting City Date and Time
@@ -17,9 +17,6 @@ function getWeather(city) {
     var dayFour = DateTime.local().plus({ days: 4 }).toLocaleString();
     var dayFive = DateTime.local().plus({ days: 5 }).toLocaleString();
 
-    //Logs City Name and Time
-    console.log(city, dt.toLocaleString());
-
 
     // Call API by City Name
     var cityWeather = `https://api.openweathermap.org/data/2.5/weather?q=${city}&units=imperial&appid=3a551c8fc73e4638743bd3a7d220e283`;
@@ -27,22 +24,7 @@ function getWeather(city) {
     //getting city weather and coordinates
     fetch(cityWeather).then(function (response) {
         if (response.ok) {
-            console.log(response);
             response.json().then(function (data) {
-                //logs all current weather data in object
-                console.log(data);
-                //logs current temperature in Fahrenheit
-                console.log("Current Temp: ", data.main.temp);
-                //logs current humidity as a percentage
-                console.log("Current Humidity: ", data.main.humidity);
-                //logs windspeed in MPH
-                console.log("Current Wind Speed: ", data.wind.speed);
-                //Logs Icon
-                console.log("Icon: ", data.weather[0].icon);
-                // Logs and Longitude
-                console.log("Longitude:", data.coord.lon);
-                // Logs and Longitude
-                console.log("Latitude:", data.coord.lat);
 
                 // Creating URL for icon image
                 var iconURL = "https://openweathermap.org/img/w/" + data.weather[0].icon + ".png";
@@ -94,12 +76,7 @@ function getWeather(city) {
         var cityWeatherOneCall = `https://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${lon}&exclude=hourly,minutely&units=imperial&appid=3a551c8fc73e4638743bd3a7d220e283`;
         fetch(cityWeatherOneCall).then(function (response) {
             if (response.ok) {
-                console.log(response);
                 response.json().then(function (data) {
-                    //logs all current weather data in object
-                    console.log(data);
-                    //Logs Current UVI
-                    console.log("Current UV Index: ", data.current.uvi);
 
                     //Adding UV Index to screen
                     var cityUV = document.createElement("p");
@@ -114,18 +91,6 @@ function getWeather(city) {
 
                     currentCard.appendChild(cityUV);
 
-                    // 5-Day Forecast Section
-                    // Day 1 Date 
-                    console.log(data.daily);
-                    // Day 1 icon
-                    console.log(data.daily[1].weather[0].icon);
-                    // Day 1 Temp
-                    console.log(data.daily[1].temp.day);
-                    // Day 1 Humidity
-                    console.log(data.daily[1].humidity);
-
-
-
                     // For Loop to move through array and grab 5-day forecast data. 
                     var weatherArray = data.daily
                     for (var i = 1; i < 6; i++) {
@@ -139,7 +104,6 @@ function getWeather(city) {
                         var fiveDayIconURL = "http://openweathermap.org/img/w/" + dayIcon + ".png";
 
                         if (!($('#five-day-box' + i).length)) {
-                            console.log("true");
                             // Create DIV with ID 'five-day'
                             $('#five-day').append($('<div>', { id: 'five-day-box' + i, class: 'five-day' }, + '</div>'))
 
@@ -155,15 +119,13 @@ function getWeather(city) {
                             // Create 5-day Humidity
                             $('#five-day-box' + i).append($('<p>', { id: 'humidity' + i }, + "Humidity: " + dayHumidity + "%" + '</p>'));
                             $('#humidity' + i).text("Humidity: " + Math.round(dayHumidity) + "%");
-                            
+
 
                             // Add Date P Tag
                             $('#five-day-box' + i).prepend($('<p>', { id: 'date' + i }, + '</p>'));
 
 
                         } else {
-
-                            console.log("false");
                             $('#five-icon' + i).attr('src', fiveDayIconURL);
 
                             // // Update 5-day Temperature
@@ -174,7 +136,6 @@ function getWeather(city) {
 
 
                         }
-                        console.log(dayTemp);
 
 
 
@@ -208,13 +169,8 @@ function getWeather(city) {
 var searchBTN = document.getElementById("search-button");
 searchBTN.addEventListener("click", getQuery);
 
-
-
 function getQuery(event) {
     event.preventDefault();
     var searchText = document.getElementById("search-text").value;
-    console.log(searchText);
     getWeather(searchText);
 };
-
-// Notes on getting from local storage

@@ -52,23 +52,29 @@ h4 {
 .green {
     background-color: green;
     color: white;
+    max-width: fit-content;
+    padding: 1%;
 }
 
 .yellow {
     background-color: yellow;
     color: black;
+    max-width: fit-content;
+    padding: 1%;
 
 }
 
 .orange {
     background-color: orange;
     color: white;
-
-    
+    max-width: fit-content;
+    padding: 1%;
 }
 
 .red {
     background-color: red;
     color: white;
+    max-width: fit-content;
+    padding: 1%;
 
 }
