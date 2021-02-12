@@ -17,7 +17,6 @@ function getWeather(city) {
     var dayFour = DateTime.local().plus({ days: 4 }).toLocaleString();
     var dayFive = DateTime.local().plus({ days: 5 }).toLocaleString();
 
-
     // Call API by City Name
     var cityWeather = `https://api.openweathermap.org/data/2.5/weather?q=${city}&units=imperial&appid=3a551c8fc73e4638743bd3a7d220e283`;
 
@@ -36,7 +35,6 @@ function getWeather(city) {
                 var cityHumidity = document.createElement("p");
                 var cityWind = document.createElement("p");
 
-
                 //Filling in Elements
                 cityDate.textContent = city + " " + dt.toLocaleString();
                 cityTemp.textContent = "Temperature: " + Math.round(data.main.temp) + " F";
@@ -48,15 +46,12 @@ function getWeather(city) {
                 // Adding src URL to IMG Tag 
                 $('#current-icon').attr('src', iconURL);
 
-
                 //Appending Elements
                 currentCard.appendChild(cityDate);
                 currentCard.appendChild(cityTemp);
                 currentCard.appendChild(cityHumidity);
                 currentCard.appendChild(cityWind);
                 currentCardParent.appendChild(currentCard);
-
-
 
                 // Calling UV Index Function
                 getUVI(data.coord.lon, data.coord.lat);
@@ -126,29 +121,23 @@ function getWeather(city) {
 
 
                         } else {
+                            // Update 5-Day Icons
                             $('#five-icon' + i).attr('src', fiveDayIconURL);
 
-                            // // Update 5-day Temperature
+                            // Update 5-day Temperature
                             $('#temp' + i).text("Temp: " + Math.round(dayTemp) + " F");
 
-                            // // Update 5-day Humidity
+                            // Update 5-day Humidity
                             $('#humidity' + i).text("Humidity: " + Math.round(dayHumidity) + "%");
-
-
                         }
 
-
-
                     }
-                    // $('#temp1').text($("Temp: " + dayTemp + " F"));
-
+                    // Adding Dates to 5-day boxes
                     $('#date1').text(dayOne);
                     $('#date2').text(dayTwo);
                     $('#date3').text(dayThree);
                     $('#date4').text(dayFour);
                     $('#date5').text(dayFive);
-
-
 
                 });
             } else {
@@ -159,18 +148,36 @@ function getWeather(city) {
                 alert('Unable to get UVI');
             });
     };
-
-
-
 };
-
 
 // Event Listener for Search Button
 var searchBTN = document.getElementById("search-button");
 searchBTN.addEventListener("click", getQuery);
 
+var cityHistoryArray = JSON.parse(localStorage.getItem("cityHistoryArray")) || [];
+
 function getQuery(event) {
     event.preventDefault();
     var searchText = document.getElementById("search-text").value;
+    setCity(searchText);
     getWeather(searchText);
+    populateCity();
 };
+
+function setCity(query) {
+    cityHistoryArray.push(query)
+   var storageEntry = JSON.stringify(cityHistoryArray)
+    localStorage.setItem("cityHistoryArray", storageEntry)
+};
+
+$('#current-area').html($('<img>', { id: 'current-icon' }));
+
+function populateCity(){
+    $('#city-history').html("")
+    for (let i = 0; i < 5; i++) {
+        if (cityHistoryArray[i] === undefined) return;
+        $("#city-history").append($('<li>').text(cityHistoryArray[i]))
+        
+    }
+}
+populateCity();
