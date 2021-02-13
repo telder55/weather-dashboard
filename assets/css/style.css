@@ -12,6 +12,10 @@ h4 {
   
 }
 
+.list-group-item {
+    text-transform: capitalize;
+}
+
 .box-1 {
     /* margin-left: 12px; */
     margin-top: 10px;

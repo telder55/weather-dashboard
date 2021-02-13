@@ -5,6 +5,8 @@ var currentCard = document.createElement("div");
 var fiveDayParent = document.getElementById("five-day");
 var fiveDayCard = document.createElement("div");
 
+
+
 function getWeather(city) {
     // Getting City Date and Time
     var DateTime = luxon.DateTime;
@@ -154,6 +156,7 @@ function getWeather(city) {
 var searchBTN = document.getElementById("search-button");
 searchBTN.addEventListener("click", getQuery);
 
+
 var cityHistoryArray = JSON.parse(localStorage.getItem("cityHistoryArray")) || [];
 
 function getQuery(event) {
@@ -170,14 +173,24 @@ function setCity(query) {
     localStorage.setItem("cityHistoryArray", storageEntry)
 };
 
-$('#current-area').html($('<img>', { id: 'current-icon' }));
 
 function populateCity(){
     $('#city-history').html("")
     for (let i = 0; i < 5; i++) {
         if (cityHistoryArray[i] === undefined) return;
-        $("#city-history").append($('<li>').text(cityHistoryArray[i]))
+        $("#city-history").append($('<li>').addClass("list-group-item").text(cityHistoryArray[i]))
         
     }
 }
 populateCity();
+
+// Event Listener for Search History
+var searchItem = document.querySelectorAll(".list-group-item")
+console.log(searchItem);
+
+searchItem.forEach(element => {
+    element.addEventListener("click", function() {
+        getWeather(element.innerText)
+    }); 
+    
+});
