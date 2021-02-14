@@ -149,6 +149,7 @@ function getWeather(city) {
             .catch(function (error) {
                 alert('Unable to get UVI');
             });
+        
     };
 };
 
@@ -169,28 +170,30 @@ function getQuery(event) {
 
 function setCity(query) {
     cityHistoryArray.push(query)
-   var storageEntry = JSON.stringify(cityHistoryArray)
+    var storageEntry = JSON.stringify(cityHistoryArray)
     localStorage.setItem("cityHistoryArray", storageEntry)
 };
 
 
-function populateCity(){
+function populateCity() {
     $('#city-history').html("")
-    for (let i = 0; i < 5; i++) {
-        if (cityHistoryArray[i] === undefined) return;
+    var arrayLength = cityHistoryArray.length <= 5 ? cityHistoryArray.length : 5;
+    for (let i = 0; i < arrayLength; i++) {
         $("#city-history").append($('<li>').addClass("list-group-item").text(cityHistoryArray[i]))
-        
+
     }
+    addHandler()
 }
 populateCity();
 
 // Event Listener for Search History
-var searchItem = document.querySelectorAll(".list-group-item")
-console.log(searchItem);
 
-searchItem.forEach(element => {
-    element.addEventListener("click", function() {
-        getWeather(element.innerText)
-    }); 
+function addHandler() {
+    var searchItem = document.querySelectorAll(".list-group-item")
+    searchItem.forEach(element => {
+        element.addEventListener("click", function () {
+            getWeather(element.innerText)
+        });
     
-});
+    });
+}
